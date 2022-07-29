@@ -8,28 +8,46 @@ import random
 # This function does not need to return anything.
 def print_board(board_array):
     print("Printing board")
+    
+    extra_line = "     |     |"
+    new_line = "\n-----|-----|-----\n"
+    
+    print(extra_line)
+    print(" ", board_array[0][0], " | ", board_array[0][1], " | ", board_array[0][2])
+    print(new_line)
+    print(" ", board_array[1][0], " | ", board_array[1][1], " | ", board_array[1][2])
+    print(new_line)
+    print(" ", board_array[2][0], " | ", board_array[2][1], " | ", board_array[2][2])
+    print(extra_line)
+
+
 
 # Write a function that creates a blank array of the 
 # correct size and shape to represent your board.
 # This function should return the array or the blank board.
 def init_board():
     print("Initializing a new board")
+    board = np.array([[" ", " ", " "], [" " , " ", " "], [" ", " ", " "]])
+    return board
 
-    return 0 # placeholder
+
+
 
 # Write a function that allows one player to take their entire turn.
 # It should return the new version of the board.
 def take_turn(current_character, board):
     print("Starting turn")
+ 
 
     # You will need to collect the  players move in the form 
     # of command line input
-    move = 0 # placeholder for player's move input
+    move = input(str(current_character) + " what is your move?")
 
     # check if the move is valid
     while not valid_move(int(move), board):
         # If the move is invalid, try to collect valid input
-        break #This will need to be removed. It is just there to stop the infinite loop
+        move = input ("That is not a valid move. Try again!")
+
 
     # update board
     update_board(current_character, int(move), board)
@@ -60,8 +78,17 @@ def determine_start():
 # This function should return a boolean (True or False)
 def valid_move(move, board):
     print("Checking if the move is valid")
-
-    return 0 # placeholder
+    
+    if move > 8:
+        return False
+    if board[move//3][move%3] == ' ':
+        return True
+    elif board[move//3][move%3] == 'X' :
+        return False
+        print("There is an X there!")
+    else:
+        print("There is an O there!")
+        return False
 
 # You will need to determine if the players move has won the game. You 
 # should dewtermine what creates a winning move in your game and check 
@@ -71,8 +98,15 @@ def valid_move(move, board):
 # This function should return a boolean (True or False)
 def check_win(character, board):
     print("Checking if the game has been won") 
-
-    return 0 # placeholder
+    
+    win = cboard)
+    print("Rows", win)
+    if win == False:
+        win = check_columns(board)
+        print("Columns", win)
+    if win == False:
+        win = check_diagonals(board)
+        print("Diag", win)
 
 # This function should check whose turn it currently is and change it 
 # to the other player 
@@ -99,6 +133,10 @@ def play_game():
 
     # initialize the board
     board = init_board()
+    board2 = init_board()
+
+    #Setting up the game
+
 
     # keep track of if the game has been won
     win = False
